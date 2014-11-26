@@ -1,0 +1,3 @@
+---
+  # if not overridden in inventory or as a parameter, this is the value that will be used
+  vyos_prefix: /opt/vyatta

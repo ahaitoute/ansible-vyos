@@ -1,0 +1,35 @@
+---
+- name: Copy VyOS scripts to VyOS system
+  copy: src={{ item }} dest=/tmp/{{ item }} owner=root group=root mode=0744
+  with_items:
+    - vyos_end_session.sh
+    - vyos_loadFile.sh
+    - vyos_setup_session.sh
+    - vyos_snippet.sh
+
+- name: Copy VyOS configuration to VyOS system
+  template: src={{ vyos_configuration }} dest=/tmp/configuration
+  register: result
+
+- name: Commit and save VyOS configuration
+  command: /tmp/vyos_loadFile.sh /tmp/configuration chdir=/tmp
+  when: result|changed
+  environment:
+    vyos_prefix: "{{ vyos_prefix }}"
+    vyos_htmldir: "{{ vyos_prefix }}/share/html"
+    vyos_datadir: "{{ vyos_prefix }}/share"
+    vyos_op_templates: "{{ vyos_prefix }}/share/vyatta-op/templates"
+    vyos_sysconfdir: "{{ vyos_prefix }}/etc"
+    vyos_sharedstatedir: "{{ vyos_prefix }}/com"
+    vyos_sbindir: "{{ vyos_prefix }}/sbin"
+    vyos_cfg_templates: "{{ vyos_prefix }}/share/vyatta-cfg/templates"
+    vyos_CFG_GROUP_NAME: vyattacfg
+    vyos_bindir: "{{ vyos_prefix }}/bin"
+    vyos_USER_LEVEL_DIR: "{{ vyos_prefix }}/etc/shell/level/admin"
+    vyos_libdir: "{{ vyos_prefix }}/lib"
+    vyos_localstatedir: "{{ vyos_prefix }}/var"
+    vyos_libexecdir: "{{ vyos_prefix }}/libexec"
+    vyos_datarootdir: "{{ vyos_prefix }}/share"
+    vyos_configdir: "{{ vyos_prefix }}/config"
+    vyos_infodir: "{{ vyos_prefix }}/share/info"
+    vyos_localedir: "{{ vyos_prefix }}/share/locale"

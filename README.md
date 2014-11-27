@@ -16,12 +16,12 @@ Clone this repo to your Ansible roles directory
 Here's an example how to use this role.
 
     ---
-    - hosts: vyos_production_servers
-    sudo: yes
-    roles:
-      - { role: vyos,
-          vyos_configuration: "vyos_configurations/vyos_configuration_{{ ansible_hostname }}.j2"
-        }
+    - hosts: servers
+      sudo: yes
+      roles:
+        - { role: vyos,
+            vyos_configuration: "vyos_configurations/vyos_configuration_{{ ansible_hostname }}.j2"
+          }
 
 ## Contributing
 

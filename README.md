@@ -14,6 +14,7 @@ Clone this repo to your Ansible roles directory
 ## Usage
 
 Here's an example how to use this role.
+
     ---
     - hosts: vyos_production_servers
     sudo: yes

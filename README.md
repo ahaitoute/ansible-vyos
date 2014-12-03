@@ -14,14 +14,15 @@ Clone this repo to your Ansible roles directory
 ## Usage
 
 Here's an example how to use this role.
+
     ---
-    - hosts: vyos_production_servers
-    sudo: yes
-    roles:
-      - { role: vyos,
-          vyos_configuration: "vyos_configurations/vyos_configuration_{{ ansible_hostname }}.j2",
-          sudo: no
-        }
+    - hosts: servers
+      sudo: yes
+      roles:
+        - { role: vyos,
+            vyos_configuration: "vyos_configurations/vyos_configuration_{{ ansible_hostname }}.j2",
+            sudo: no
+          }
 
 The user must have level admin.
 

@@ -1,6 +1,6 @@
 ---
 - name: Copy VyOS scripts to VyOS system
-  copy: src={{ item }} dest=/tmp/{{ item }} owner=root group=root mode=0744
+  copy: src={{ item }} dest=/tmp/{{ item }} group=vyattacfg mode=0774
   with_items:
     - vyos_end_session.sh
     - vyos_loadFile.sh

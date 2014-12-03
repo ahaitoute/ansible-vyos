@@ -19,8 +19,11 @@ Here's an example how to use this role.
     sudo: yes
     roles:
       - { role: vyos,
-          vyos_configuration: "vyos_configurations/vyos_configuration_{{ ansible_hostname }}.j2"
+          vyos_configuration: "vyos_configurations/vyos_configuration_{{ ansible_hostname }}.j2",
+          sudo: no
         }
+
+The user must have level admin.
 
 ## Contributing
 

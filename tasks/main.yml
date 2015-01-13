@@ -8,7 +8,7 @@
     - vyos_snippet.sh
 
 - name: Copy VyOS configuration to VyOS system
-  template: src={{ vyos_configuration }} dest=/tmp/configuration
+  template: src={{ vyos_configuration }} dest=/tmp/configuration group=vyattacfg mode=0770
   register: result
 
 - name: Commit and save VyOS configuration

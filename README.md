@@ -24,7 +24,11 @@ Here's an example how to use this role.
             sudo: no
           }
 
-The user must have level admin.
+The user must have VyOS-level admin.
+
+## License
+
+Licensed under the GPLv3 License. See the LICENSE file for details.
 
 ## Contributing
 

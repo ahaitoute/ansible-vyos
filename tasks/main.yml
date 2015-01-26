@@ -1,6 +1,12 @@
 ---
+- name: Set directory prefix
+  set_fact: vyos_script_prefix=/tmp/ansible-vyos
+
+- name: Make sure directory exists
+  file: path={{ vyos_script_prefix }} state=directory group=vyattacfg mode=0770
+
 - name: Copy VyOS scripts to VyOS system
-  copy: src={{ item }} dest=/tmp/{{ item }} group=vyattacfg mode=0774
+  copy: src={{ item }} dest="{{ vyos_script_prefix }}/{{ item }}" group=vyattacfg mode=0774
   with_items:
     - vyos_end_session.sh
     - vyos_loadFile.sh
@@ -8,11 +14,11 @@
     - vyos_snippet.sh
 
 - name: Copy VyOS configuration to VyOS system
-  template: src={{ vyos_configuration }} dest=/tmp/configuration group=vyattacfg mode=0770
+  template: src={{ vyos_configuration }} dest="{{ vyos_script_prefix }}/configuration" group=vyattacfg mode=0770
   register: result
 
 - name: Commit and save VyOS configuration
-  command: /tmp/vyos_loadFile.sh /tmp/configuration chdir=/tmp
+  command: "{{ vyos_script_prefix }}/vyos_loadFile.sh {{ vyos_script_prefix }}/configuration chdir={{ vyos_script_prefix }}"
   when: result|changed
   environment:
     vyatta_prefix: "{{ vyos_prefix }}"

@@ -5,9 +5,9 @@ if [ ! -z $1 ] && [ -f $1 ]; then
   . vyos_setup_session.sh
 
   if [ $? -eq 0 ]; then
-    $SHELL_API loadFile $1
-    $COMMIT
-    $SAVE
+    $SHELL_API loadFile $1 || RC=$?
+    $COMMIT || RC=$?
+    $SAVE || RC=$?
     . vyos_end_session.sh
   fi
 
